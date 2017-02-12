@@ -81,10 +81,18 @@ head(d, 10)
 
 
 #generate the word cloud
+
+
+tiff("Word_cloud_Origin_species_Darwin.tiff", 
+     height=10, width=10,
+     units='cm', compression="lzw", res=600)
+
 set.seed(1234)
 wordcloud(words = d$word, freq = d$freq, min.freq = 1,
-          max.words=200, random.order=FALSE, rot.per=0.35, 
+          max.words=180, random.order=FALSE, rot.per=0.35, 
           colors=brewer.pal(8, "Dark2"))
+
+dev.off()
 
 #exploring frequent terms
 findFreqTerms(dtm, lowfreq = 400)
@@ -94,7 +102,12 @@ findAssocs(dtm, terms = "selection", corlimit = 0.3)
 
 
 # histogram of words
+tiff("Word_count_Origin_species_Darwin.tiff", 
+     height=10, width=10,
+     units='cm', compression="lzw", res=600)
 
 barplot(d[1:10,]$freq, las = 2, names.arg = d[1:10,]$word,
         col ="chocolate1", main ="Most frequent words of:\nThe origin of the species\nCharles Darwin",
         ylab = "Frequency")
+
+dev.off()
