@@ -19,11 +19,11 @@
 
 # packages needed
 
-# Install
-install.packages("tm")  # for text mining
-install.packages("SnowballC") # for text stemming
-install.packages("wordcloud") # word-cloud generator 
-install.packages("RColorBrewer") # color palettes
+# # Install
+# install.packages("tm")  # for text mining
+# install.packages("SnowballC") # for text stemming
+# install.packages("wordcloud") # word-cloud generator 
+# install.packages("RColorBrewer") # color palettes
 
 # Load
 library("tm")
@@ -37,7 +37,8 @@ rm(list=ls())
 #getwd()
 
 #importing text file
-text <- readLines(file.choose())
+#text <- readLines(file.choose())
+text <- readLines("the_origin_of_species_Charles_Darwin.txt")
 
 #loading the data as a corpus
 docs <- Corpus(VectorSource(text))
@@ -85,4 +86,15 @@ wordcloud(words = d$word, freq = d$freq, min.freq = 1,
           max.words=200, random.order=FALSE, rot.per=0.35, 
           colors=brewer.pal(8, "Dark2"))
 
+#exploring frequent terms
+findFreqTerms(dtm, lowfreq = 400)
 
+# finding associations between frequent terms, e.g. species
+findAssocs(dtm, terms = "selection", corlimit = 0.3)
+
+
+# histogram of words
+
+barplot(d[1:10,]$freq, las = 2, names.arg = d[1:10,]$word,
+        col ="chocolate3", main ="Most frequent words of:\nThe origin of the species\nCharles Darwin",
+        ylab = "Frequency")
