@@ -96,5 +96,5 @@ findAssocs(dtm, terms = "selection", corlimit = 0.3)
 # histogram of words
 
 barplot(d[1:10,]$freq, las = 2, names.arg = d[1:10,]$word,
-        col ="chocolate3", main ="Most frequent words of:\nThe origin of the species\nCharles Darwin",
+        col ="chocolate1", main ="Most frequent words of:\nThe origin of the species\nCharles Darwin",
         ylab = "Frequency")
