@@ -38,7 +38,8 @@ rm(list=ls())
 
 #importing text file
 #text <- readLines(file.choose())
-text <- readLines("the_origin_of_species_Charles_Darwin.txt")
+#text <- readLines("the_origin_of_species_Charles_Darwin.txt")
+text <- readLines("Sanchez-Tojar_et_al_2016_Winter_territory_prospecting.txt")
 
 #loading the data as a corpus
 docs <- Corpus(VectorSource(text))
@@ -83,31 +84,38 @@ head(d, 10)
 #generate the word cloud
 
 
-tiff("Word_cloud_Origin_species_Darwin.tiff", 
+tiff(#"Word_cloud_Origin_species_Darwin.tiff",
+     "Sanchez-Tojar_et_al_2016_Winter_territory_prospecting.tiff",
      height=10, width=10,
      units='cm', compression="lzw", res=600)
 
 set.seed(1234)
 wordcloud(words = d$word, freq = d$freq, min.freq = 1,
-          max.words=180, random.order=FALSE, rot.per=0.35, 
+          max.words=120, 
+          #max.words=180, 
+          random.order=FALSE, rot.per=0.35, 
           colors=brewer.pal(8, "Dark2"))
 
 dev.off()
 
 #exploring frequent terms
-findFreqTerms(dtm, lowfreq = 400)
+findFreqTerms(dtm, lowfreq = 20)
 
 # finding associations between frequent terms, e.g. species
-findAssocs(dtm, terms = "selection", corlimit = 0.3)
+#findAssocs(dtm, terms = "selection", corlimit = 0.3)
+findAssocs(dtm, terms = "territory", corlimit = 0.55)
 
 
 # histogram of words
-tiff("Word_count_Origin_species_Darwin.tiff", 
+tiff(#"Word_count_Origin_species_Darwin.tiff",
+     "Word_count_Sanchez-Tojar_et_al_2016_Winter_territory_prospecting.tiff", 
      height=10, width=10,
      units='cm', compression="lzw", res=600)
 
 barplot(d[1:10,]$freq, las = 2, names.arg = d[1:10,]$word,
-        col ="chocolate1", main ="Most frequent words of:\nThe origin of the species\nCharles Darwin",
+        col ="chocolate1", 
+        #main ="Most frequent words of:\nThe origin of the species\nCharles Darwin",
+        main ="Most frequent words of:\nWinter territory prospecting is associated with\nlife-history stage but not activity in a passerine",
         ylab = "Frequency")
 
 dev.off()
